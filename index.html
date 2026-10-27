@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101713">
+  <title>Forge Gym | Member Management</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="test-suite.css">
+  <script src="script.js" defer></script>
+  <script src="test-suite.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard" aria-label="Forge Gym home"><span class="brand-mark">F</span><span>FORGE<span class="brand-light">GYM</span><small>MEMBER MANAGEMENT</small></span></a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#dashboard" class="nav-link active" data-page="dashboard"><span>▦</span> Dashboard</a>
+        <a href="#members" class="nav-link" data-page="members"><span>♙</span> Members</a>
+        <a href="#register" class="nav-link" data-page="register"><span>＋</span> Register member</a>
+        <a href="#test-suite" class="nav-link" data-page="test-suite"><span>✓</span> Test Suite Runner</a>
+      </nav>
+      <div class="sidebar-bottom"><div class="status-dot"></div><div><strong>LOCAL MODE</strong><small>Your data stays in this browser</small></div></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar"><div><div class="eyebrow">MEMBER MANAGEMENT</div><h1 id="page-title">Dashboard</h1></div><button class="button button-primary" type="button" data-go="register"><span>＋</span> Register member</button></header>
+
+      <section class="page active" id="dashboard-page" aria-labelledby="page-title">
+        <section class="hero"><div class="hero-copy"><span class="hero-kicker">TRAIN WITH PURPOSE</span><h2>Build a stronger<br>community.</h2><p>Keep your gym moving with a clear view of your members and memberships.</p><button class="button button-dark" type="button" data-go="register">Add your first member <span>→</span></button></div><div class="hero-graphic" aria-hidden="true"><div class="ring ring-one"></div><div class="ring ring-two"></div><div class="hero-word">FORGE<br><span>YOUR</span><br>FUTURE</div><div class="hero-caption">CONSISTENCY<br>BUILDS STRENGTH</div></div></section>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span class="stat-label">TOTAL MEMBERS</span><span class="stat-icon lime">♙</span></div><strong id="total-members">0</strong><span class="stat-foot">All registered members</span></article>
+          <article class="stat-card"><div class="stat-top"><span class="stat-label">MONTHLY PLAN</span><span class="stat-icon mint">◷</span></div><strong id="monthly-count">0</strong><span class="stat-foot">₹1,000 per membership</span></article>
+          <article class="stat-card"><div class="stat-top"><span class="stat-label">QUARTERLY PLAN</span><span class="stat-icon orange">◇</span></div><strong id="quarterly-count">0</strong><span class="stat-foot">₹2,500 per membership</span></article>
+          <article class="stat-card"><div class="stat-top"><span class="stat-label">YEARLY PLAN</span><span class="stat-icon blue">✦</span></div><strong id="yearly-count">0</strong><span class="stat-foot">₹8,000 per membership</span></article>
+        </div>
+        <section class="panel"><div class="panel-heading"><div><span class="eyebrow">RECENT ACTIVITY</span><h2>Latest members</h2></div><button class="text-link" type="button" data-go="members">View all members <span>→</span></button></div><div id="recent-members"></div></section>
+        <section class="plans-section"><div class="panel-heading"><div><span class="eyebrow">SIMPLE MEMBERSHIPS</span><h2>Choose your plan</h2></div></div><div class="plan-grid" id="plan-cards"></div></section>
+      </section>
+
+      <section class="page" id="members-page" aria-labelledby="page-title">
+        <div class="page-intro"><div><span class="eyebrow">MEMBER DIRECTORY</span><h2>All members</h2><p>Search, update, or remove registered member records.</p></div><span class="count-pill" id="directory-count">0 members</span></div>
+        <div id="directory-message" class="directory-message" role="status" hidden></div>
+        <section class="panel directory-panel"><label class="search-box"><span>⌕</span><input id="member-search" type="search" placeholder="Search name, phone, or email" autocomplete="off"><kbd>SEARCH</kbd></label><div id="members-table"></div></section>
+      </section>
+
+      <section class="page" id="register-page" aria-labelledby="page-title">
+        <div class="page-intro"><div><span class="eyebrow" id="form-eyebrow">NEW MEMBER</span><h2 id="form-title">Register a member</h2><p>Enter the member details below. Fields marked * are required.</p></div></div>
+        <section class="panel form-panel"><div class="form-heading"><span class="form-icon">＋</span><div><strong>Member details</strong><small>Registration date and member ID are generated automatically.</small></div></div><div id="form-message" class="form-message" role="alert" hidden></div>
+          <form id="member-form" novalidate>
+            <input type="hidden" id="edit-id">
+            <div class="form-grid">
+              <label class="field field-wide"><span>Full name <b>*</b></span><input id="name" name="name" type="text" maxlength="80" placeholder="e.g. Aditi Sharma" required autocomplete="name"></label>
+              <label class="field"><span>Age <b>*</b></span><input id="age" name="age" type="number" min="12" max="100" placeholder="18" required></label>
+              <label class="field"><span>Gender <b>*</b></span><select id="gender" name="gender" required><option value="">Select gender</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Prefer not to say</option></select></label>
+              <label class="field"><span>Phone number <b>*</b></span><input id="phone" name="phone" type="tel" maxlength="16" placeholder="98765 43210" required autocomplete="tel"></label>
+              <label class="field"><span>Email address <b>*</b></span><input id="email" name="email" type="email" maxlength="120" placeholder="name@example.com" required autocomplete="email"></label>
+              <label class="field field-wide"><span>Membership plan <b>*</b></span><select id="plan" name="plan" required><option value="">Choose a membership plan</option></select></label>
+            </div>
+            <div class="form-actions"><span class="required-note">* Required information</span><div><button class="button button-outline" type="button" id="cancel-edit" hidden>Cancel</button><button class="button button-primary" type="submit" id="submit-button">Save member <span>→</span></button></div></div>
+          </form>
+        </section>
+        <aside class="privacy-note"><span>◎</span><p><strong>Your records stay on this device.</strong> Member information is saved in this browser using LocalStorage.</p></aside>
+      </section>
+
+      <section class="page test-suite-page" id="test-suite-page" aria-labelledby="suite-heading">
+        <div class="suite-heading">
+          <div><span class="eyebrow">QUALITY CONTROL · ISOLATED TEST DATA</span><h2 id="suite-heading">Automated Test Suite Runner</h2><p>Run black-box feature checks and white-box logic checks against isolated test storage.</p></div>
+          <span class="suite-badge"><i></i> SAFE TEST MODE</span>
+        </div>
+        <div class="suite-summary" aria-live="polite">
+          <article class="suite-stat"><span>TOTAL TESTS</span><strong id="suite-total">0</strong><small>Selected test cases</small></article>
+          <article class="suite-stat passed"><span>PASSED</span><strong id="suite-passed">0</strong><small>Assertions succeeded</small></article>
+          <article class="suite-stat failed"><span>FAILED</span><strong id="suite-failed">0</strong><small>Assertions did not match</small></article>
+          <article class="suite-stat running"><span>RUNNING</span><strong id="suite-running">0</strong><small>Currently executing</small></article>
+        </div>
+        <section class="suite-actions panel">
+          <div class="suite-actions-copy"><span class="eyebrow">TEST EXECUTION</span><strong id="suite-status">Ready to run</strong><small>Tests use a temporary in-memory storage adapter and do not touch your saved members.</small><small id="export-feedback" role="status"></small></div>
+          <div class="suite-button-row">
+            <button class="button button-primary suite-run-main" type="button" id="run-all-tests">▶ Execute All Tests Now</button>
+            <button class="button button-outline" type="button" id="run-black-tests">Run Black-box</button>
+            <button class="button button-outline" type="button" id="run-white-tests">Run White-box</button>
+            <button class="button button-outline" type="button" id="clear-test-results">Clear results</button>
+            <button class="button button-dark" type="button" id="export-test-results" disabled>Export CSV</button>
+          </div>
+        </section>
+        <div class="suite-progress" aria-label="Test progress"><span id="suite-progress-bar"></span></div>
+        <section class="suite-console panel">
+          <div class="console-heading"><div><span class="console-live"></span><strong>EXECUTION CONSOLE</strong><small id="console-count">No results yet</small></div><span class="console-clock" id="suite-duration">READY</span></div>
+          <div class="suite-results" id="suite-results" aria-live="polite"><div class="suite-empty"><span>⌁</span><strong>No test run yet</strong><p>Choose a run option above to execute the isolated test suite.</p></div></div>
+          <div class="suite-final" id="suite-final" hidden></div>
+        </section>
+        <div class="suite-footnote"><span>◈</span><p><strong>Your gym records are protected.</strong> Every test receives its own in-memory storage and a fresh member list.</p></div>
+      </section>
+      <footer class="footer"><span>FORGE GYM · MEMBER MANAGEMENT</span><span>BUILT FOR STRENGTH, ONE MEMBER AT A TIME</span></footer>
+    </main>
+  </div>
+  <dialog id="confirm-dialog" class="confirm-dialog"><form method="dialog"><span class="dialog-mark">!</span><h2>Delete this member?</h2><p>This record will be removed from this browser. This action cannot be undone.</p><div class="dialog-actions"><button class="button button-outline" value="cancel">Keep member</button><button class="button button-danger" id="confirm-delete" value="delete">Delete member</button></div></form></dialog>
+</body>
+</html>
